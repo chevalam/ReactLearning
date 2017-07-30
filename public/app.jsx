@@ -14,16 +14,19 @@ var GreeterForm = React.createClass({
     e.preventDefault();
     var name = this.refs.name.value;
     var message = this.refs.message.value;
-    var updates = {}
+    var updates = {};
+
     if(name.length > 0) {
+      updates.name = name;
     this.refs.name.value = '';
-    this.props.onNewClickFunction(name,message);
   }
 
   if(message.length > 0) {
+    updates.message = message;
     this.refs.message.value = '';
-    this.props.onNewClickFunction(name,message);
-  }
+    }
+
+    this.props.onNewClickFunction(updates);
   },
     render: function(){
     return (
@@ -53,18 +56,8 @@ var Greeter = React.createClass({
   },
 
 
-  onHandleFormClick: function(name,message) {
-    if(name.length > 0) {
-        this.setState({
-          name:name
-          });
-        }
-
-    if(message.length > 0) {
-        this.setState({
-          message:message
-        });
-      }
+  onHandleFormClick: function(updates) {
+        this.setState(updates);
   },
 
   render: function() {
